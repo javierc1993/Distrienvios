@@ -1,0 +1,37 @@
+<%- include('partials/__header.ejs') %>
+<div class="col-md-7">
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          
+          <th>guia</th>
+          <th>Pueblo</th>
+          <th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody>
+            <%= consultaGuia.guia %>
+        
+          <tr>
+            
+            <td><strong><%= consultaGuia.guia %></strong></td>
+            <td><%= consultaGuia.pueblo %></td>
+            <td style="font-size: 50%"><%= consultaGuia.timestamps.toString() %></td>
+            <td>
+              <a
+                class="<%= consultaGuia.status ? 'btn btn-success' : 'btn btn-dark'%>"
+                href="/turn/<%= consultaGuia._id %>">Done</a>
+              <a href="/delete/<%= consultaGuia._id %>"
+                class="btn btn-danger">
+                Delete
+              </a>
+              <a href="/edit/<%= consultaGuia._id %>" class="btn btn-info">
+                Edit
+              </a>
+            </td>
+          </tr>
+        
+      </tbody>
+    </table>
+  </div>
+  <%- include('partials/__footer.ejs') %>

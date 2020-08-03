@@ -1,0 +1,95 @@
+<%- include('partials/__header.ejs') %>
+
+<div class="container">
+
+    <div class="row">
+      <!--FORM-->
+
+      <div class="col-md-5">
+        <div class="card">
+          <div class="card-body">
+            <form action="/addguia" method="post">
+              <div class="form-group">
+                <select name="pueblo">
+                  <option>Rosas</option>
+                  
+                  <option>Popayan</option>
+                  
+                  <option>Timbio</option>
+                  </select>
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="text" name="guia" placeholder="guia" >
+              </div>
+              
+              
+              <button class="btn btn-primary" type="submit">
+                Asignar
+              </button>
+              <a href="/delete/ %>"
+                class="btn btn-danger">
+               Reinicio
+              </a>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="card">
+          <div class="card-body">
+            <form action="/find" method="post">
+              
+              <div class="form-group">
+                <input class="form-control" type="text" name="guia" placeholder="guia" >
+              </div>
+              
+              
+              <button class="btn btn-primary" type="submit">
+                Buscar
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- LIST -->
+      <div class="col-md-7">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>N°</th>
+              <th>guia</th>
+              <th>Pueblo</th>
+              <th>Fecha</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for(var i=0; i < guias.length; i++) { %>
+              <tr>
+                <td><%= i + 1%></td>
+                <td><strong><%= guias[i].guia %></strong></td>
+                <td><%= guias[i].pueblo %></td>
+                <td style="font-size: 50%"><%= guias[i].timestamps.toString() %></td>
+                <td>
+                  <a
+                    class="<%= guias[i].status ? 'btn btn-success' : 'btn btn-dark'%>"
+                    href="/turn/<%= guias[i]._id %>">Done</a>
+                  <a href="/delete/<%= guias[i]._id %>"
+                    class="btn btn-danger">
+                    Delete
+                  </a>
+                  <a href="/edit/<%= guias[i]._id %>" class="btn btn-info">
+                    Edit
+                  </a>
+                </td>
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+      
+    </div>
+  
+  </div>
+
+
+    <%- include('partials/__footer.ejs') %>

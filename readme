@@ -1,0 +1,40 @@
+1-crear una carpeta de espacio de trabajo
+2-ubicarse en la carpeta de trabajo
+3-Ejecutar en la terminal npm init --yes que iniciara un archivo de dependencias llamado package.json.
+4-una vez inicializado el proyecto se procede a instalas las siguientes dependencias. npm i express mongoose ejs morgan dotenv
+	4.1-express= framework de js
+	4.2-mongoose = modela datos y conecta con mongo DB 
+	4.3-ejs= control y motor de plantillas para las vistas
+	4.4-morgan= modulo que muestra las peticiones en consola
+	4.5-dotenv= modulo que permite manejar variables de entorno en un 			archivo .env
+
+5-instalación de modulos de apoyo npm i nodemon-D
+	5.1-nodemon= modulo que evita que reinicie el servidor cada vez 			      que implemente un cambio en el código
+6-en package.json en la seccion de scripts encontraremos la instrucción que se ejecuta al definir un comando de inicio del servidor.
+7-definir una estructura de jerarquias de carpetas creando una carpeta con el nombre src la cual contendra archivos de configuración del servidor, la carpeta models, views, routes.
+8-Ahora que estan definidas las carpetas crearemos un archivo app.js que contendra las configuraciones del servidor.
+9-creamos un archivo .env que contendra las variables de entorno de nuestro proyecto (importante este archivo no debe estar add a tu repositorio de git hub debe estar en gitignore.
+10-creamos una cuenta en mongo DB atlas y la configuramos.
+11-en la seccion package.json scripts colocamos el comando "start":"node src/app.js" el cual por medio del bin npm correra el servidor de prueba, al ejecutar en consola npm start.
+12-para el entorno de desarrollo definimos como en el paso 11 "dev":"nodemon src/app.js" y corremos el comando npm run dev
+13-en el archivo app.js requiero el modulo path const path=require('path'); para definir los enlaces de las carpetas ahora con el comando app.set('views', path.join(__dirname,'views'));
+14- defino el motor de plantillas ejs con el comando app.set('view engine',ejs);
+15-requiero el modulo morgan const morgan=require('morgan'); luego lo defino con app.use(morgan('dev'));
+16-en el archivo index.js se crearan las rutas de acceso a la aplicación es decir en esta parte va la logica de negocios para darle salida al archivo se usara const express=require('express'); const router=express.Router(); y se exporta por medio de module.exports =router;
+17-luego en app.js se requiere el archivo de rutas asi: const indexRoutes = require('./routes/index'); y lo usamos asi app.use('/',indexRoutes);
+18-ahora hacemos el parseo de lo enviado por el metodo post al servidor de la siguiente manera: app.use(express.urlencoded({extende: false}));
+19-creamos la conexion por medio de mongoose a mongoDB, primero defino una variable MONGO_URI='' con el enlace de conexión quemongoatlas nos proporcione, luego requerimos dotenv para traer la variable de entorno require('dotenv').config(); despues la almacenamos en una variable local asi const nombredelavariable = process.env.MONGO_URI
+	19.1- mongoose.connect(mongo_uri,{ useNewUrlParser: true,useUnifiedTopology: true })//conectar desde el modulo mongoose con mongo DB
+//mongoose.connect('mongodb://localhost/EstrategiasEvaluativas2',{ useNewUrlParser: true,useUnifiedTopology: true })//conectar desde el modulo mongoose con mongo DB
+.then(db => console.log('conexión exitosa')) //mensajes de conexión (promesa de conexión)
+.catch(err => console.log(err));
+
+20-creamos en la carpeta models un modelo o esquema de como van a lucir nuestros documentos (analogia a tabla en sql) donde se definen los campos que tendran el nombre de los campos y el tipo de campo, la estructura del documento sera asi:
+			const mongoose=require('mongoose');
+			const Schema = mongoose.Schema;
+			const TasKSchema = new Schema({
+				"nombrededato": tipodedatos;});
+	module.exports=	mongoose.model('nombredelacoleccion',TaskSchema);
+21-en routes/index.js definiremos la logica por medio del metodo router definido en el paso 16, router.get('/',(req,res)=>{aqui va la logica de negocios}); se pueden usar metodos get post delete put , lo que le sigue es la ruta a donde apunta el browser luego los metodos el req es para requerir datos del cliente y res es para responder.
+22-
+			
